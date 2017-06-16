@@ -1,0 +1,117 @@
+@charset "utf-8";
+@mixin respond-to($media-list...) {
+    @if index($media-list, lg) {
+        @media screen and (min-width: $bp-tab) {
+            @content;
+        }
+    }
+    @if index($media-list, under-md) {
+        @media screen and (max-width: $bp-tab - 1) {
+            @content;
+        }
+    }
+    @if index($media-list, md) {
+        @media screen and (min-width: $bp-mob) and (max-width: $bp-tab - 1) {
+            @content;
+        }
+    }
+    @if index($media-list, sm) {
+        @media screen and (max-width: $bp-mob - 1) {
+            @content;
+        }
+    }
+}
+
+@mixin centering {
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin font-family($font: yu) {
+    @if index($font, yu) {
+        font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+    }
+}
+
+
+
+@mixin more-dot {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// Mixins fontsawesome
+// --------------------------
+@mixin fa-icon() {
+    display: inline-block;
+    font: normal normal normal #{$fa-font-size-base}/#{$fa-line-height-base} FontAwesome; // shortening font declaration
+    font-size: inherit; // can't have font-size inherit on line above, so need to override
+    text-rendering: auto; // optimizelegibility throws things off #1094
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin fa-icon-rotate($degrees, $rotation) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$rotation})";
+    -webkit-transform: rotate($degrees);
+    -ms-transform: rotate($degrees);
+    transform: rotate($degrees);
+}
+
+@mixin fa-icon-flip($horiz, $vert, $rotation) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$rotation}, mirror=1)";
+    -webkit-transform: scale($horiz, $vert);
+    -ms-transform: scale($horiz, $vert);
+    transform: scale($horiz, $vert);
+}
+
+// Only display content to screen readers. A la Bootstrap 4.
+//
+// See: http://a11yproject.com/posts/how-to-hide-content/
+@mixin sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+@mixin btn_behav{
+	 &:hover {
+     background-color: $color_b;
+     color: #fff;
+    }
+    &:active {
+        -ms-transform: translateY(4px);
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);
+        border-bottom: none;
+    }	
+}
+
+
+
+
+
+// Use in conjunction with .sr-only to only display content when it's focused.
+//
+// Useful for "Skip to main content" links; see http://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1
+//
+// Credit: HTML5 Boilerplate
+@mixin sr-only-focusable {
+    &:active,
+    &:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+    }
+}
